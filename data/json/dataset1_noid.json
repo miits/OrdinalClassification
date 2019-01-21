@@ -1,0 +1,125 @@
+[
+    {
+        "active": true,
+        "preferenceType": "gain",
+        "name": "Earnings_before_interest_and_taxes_div_Total_assets",
+        "valueType": "real",
+        "type": "condition"
+    },
+    {
+        "active": true,
+        "preferenceType": "gain",
+        "name": "Net_profit_div_Net_worth",
+        "valueType": "real",
+        "type": "condition"
+    },
+    {
+        "active": true,
+        "preferenceType": "gain",
+        "name": "Sales_div_Total_assets",
+        "valueType": "real",
+        "type": "condition"
+    },
+    {
+        "active": true,
+        "preferenceType": "gain",
+        "name": "Gross_profit_div_Total_assets",
+        "valueType": "real",
+        "type": "condition"
+    },
+    {
+        "active": true,
+        "preferenceType": "gain",
+        "name": "Net_profit_div_Working_capital",
+        "valueType": "real",
+        "type": "condition"
+    },
+    {
+        "active": true,
+        "preferenceType": "gain",
+        "name": "Net_worth_div_Total_liabilities",
+        "valueType": "real",
+        "type": "condition"
+    },
+    {
+        "active": true,
+        "preferenceType": "cost",
+        "name": "Total_liabilities_div_Total_assets",
+        "valueType": "real",
+        "type": "condition"
+    },
+    {
+        "active": true,
+        "preferenceType": "cost",
+        "name": "Long_term_liabilities_div_Long_term_liabilities_plus_Net_worth",
+        "valueType": "real",
+        "type": "condition"
+    },
+    {
+        "active": true,
+        "preferenceType": "gain",
+        "name": "Current_assets_div_Current_liabilities",
+        "valueType": "real",
+        "type": "condition"
+    },
+    {
+        "active": true,
+        "preferenceType": "gain",
+        "name": "Quick_assets_div_Current_liabilities",
+        "valueType": "real",
+        "type": "condition"
+    },
+    {
+        "active": true,
+        "preferenceType": "gain",
+        "name": "Cash_div_Current_liabilities",
+        "valueType": "real",
+        "type": "condition"
+    },
+    {
+        "active": true,
+        "preferenceType": "cost",
+        "name": "Current_liabilities_div_Net_worth",
+        "valueType": "real",
+        "type": "condition"
+    },
+    {
+        "active": true,
+        "preferenceType": "gain",
+        "name": "Cash_flow_div_Total_assets",
+        "valueType": "real",
+        "type": "condition"
+    },
+    {
+        "active": true,
+        "preferenceType": "cost",
+        "name": "Total_liabilities_div_Working_capital",
+        "valueType": "real",
+        "type": "condition"
+    },
+    {
+        "active": true,
+        "preferenceType": "gain",
+        "name": "Working_capical_div_Total_assets",
+        "valueType": "real",
+        "type": "condition"
+    },
+    {
+        "active": true,
+        "preferenceType": "cost",
+        "name": "Inventories_div_Current_assets",
+        "valueType": "real",
+        "type": "condition"
+    },
+    {
+        "valueType": "enumeration",
+        "name": "STATUS",
+        "active": true,
+        "preferenceType": "cost",
+        "domain": [
+            "1",
+            "2"
+        ],
+        "type": "decision"
+    }
+]

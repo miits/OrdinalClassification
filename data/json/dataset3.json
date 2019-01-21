@@ -1,0 +1,96 @@
+[
+    {
+        "valueType": "enumeration",
+        "name": "FIRM_ID",
+        "active": true,
+        "preferenceType": "none",
+        "domain": [
+            "integerdescription"
+        ],
+        "type": "condition"
+    },
+    {
+        "active": true,
+        "preferenceType": "gain",
+        "name": "Current_ratio",
+        "valueType": "real",
+        "type": "condition"
+    },
+    {
+        "active": true,
+        "preferenceType": "gain",
+        "name": "Quick_ratio",
+        "valueType": "real",
+        "type": "condition"
+    },
+    {
+        "active": true,
+        "preferenceType": "gain",
+        "name": "Solvency_ratio",
+        "valueType": "real",
+        "type": "condition"
+    },
+    {
+        "active": true,
+        "preferenceType": "gain",
+        "name": "Net_profit_margin",
+        "valueType": "real",
+        "type": "condition"
+    },
+    {
+        "active": true,
+        "preferenceType": "gain",
+        "name": "Return_on_total_assets",
+        "valueType": "real",
+        "type": "condition"
+    },
+    {
+        "active": true,
+        "preferenceType": "gain",
+        "name": "Interest_cover",
+        "valueType": "real",
+        "type": "condition"
+    },
+    {
+        "active": true,
+        "preferenceType": "cost",
+        "name": "Creditors_payment_in_days",
+        "valueType": "real",
+        "type": "condition"
+    },
+    {
+        "active": true,
+        "preferenceType": "gain",
+        "name": "Gross_profit_margin",
+        "valueType": "real",
+        "type": "condition"
+    },
+    {
+        "active": true,
+        "preferenceType": "gain",
+        "name": "EBIT_margin",
+        "valueType": "real",
+        "type": "condition"
+    },
+    {
+        "active": true,
+        "preferenceType": "gain",
+        "name": "EBITDA_margin",
+        "valueType": "real",
+        "type": "condition"
+    },
+    {
+        "valueType": "enumeration",
+        "name": "STATUS",
+        "active": true,
+        "preferenceType": "cost",
+        "domain": [
+            "1",
+            "2",
+            "3",
+            "4",
+            "5"
+        ],
+        "type": "decision"
+    }
+]

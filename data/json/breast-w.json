@@ -1,0 +1,76 @@
+[
+    {
+        "active": true,
+        "preferenceType": "gain",
+        "name": "Clump_Thickness",
+        "valueType": "real",
+        "type": "condition"
+    },
+    {
+        "active": true,
+        "preferenceType": "gain",
+        "name": "Cell_Size_Uniformity",
+        "valueType": "real",
+        "type": "condition"
+    },
+    {
+        "active": true,
+        "preferenceType": "gain",
+        "name": "Cell_Shape_Uniformity",
+        "valueType": "real",
+        "type": "condition"
+    },
+    {
+        "active": true,
+        "preferenceType": "gain",
+        "name": "Marginal_Adhesion",
+        "valueType": "real",
+        "type": "condition"
+    },
+    {
+        "active": true,
+        "preferenceType": "gain",
+        "name": "Single_Epi_Cell_Size",
+        "valueType": "real",
+        "type": "condition"
+    },
+    {
+        "active": true,
+        "preferenceType": "gain",
+        "name": "Bare_Nuclei",
+        "valueType": "real",
+        "type": "condition"
+    },
+    {
+        "active": true,
+        "preferenceType": "gain",
+        "name": "Bland_Chromatin",
+        "valueType": "real",
+        "type": "condition"
+    },
+    {
+        "active": true,
+        "preferenceType": "gain",
+        "name": "Normal_Nucleoli",
+        "valueType": "real",
+        "type": "condition"
+    },
+    {
+        "active": true,
+        "preferenceType": "gain",
+        "name": "Mitoses",
+        "valueType": "real",
+        "type": "condition"
+    },
+    {
+        "valueType": "enumeration",
+        "name": "Class",
+        "active": true,
+        "preferenceType": "gain",
+        "domain": [
+            "benign",
+            "malignant"
+        ],
+        "type": "decision"
+    }
+]

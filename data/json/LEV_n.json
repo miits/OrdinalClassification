@@ -1,0 +1,44 @@
+[
+    {
+        "active": true,
+        "preferenceType": "gain",
+        "name": "in1",
+        "valueType": "integer",
+        "type": "condition"
+    },
+    {
+        "active": true,
+        "preferenceType": "gain",
+        "name": "in2",
+        "valueType": "integer",
+        "type": "condition"
+    },
+    {
+        "active": true,
+        "preferenceType": "gain",
+        "name": "in3",
+        "valueType": "integer",
+        "type": "condition"
+    },
+    {
+        "active": true,
+        "preferenceType": "gain",
+        "name": "in4",
+        "valueType": "integer",
+        "type": "condition"
+    },
+    {
+        "valueType": "enumeration",
+        "name": "out1",
+        "active": true,
+        "preferenceType": "gain",
+        "domain": [
+            "0",
+            "1",
+            "2",
+            "3",
+            "4"
+        ],
+        "type": "decision"
+    }
+]

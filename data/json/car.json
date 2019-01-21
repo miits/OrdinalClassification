@@ -1,0 +1,89 @@
+[
+    {
+        "valueType": "enumeration",
+        "name": "buying",
+        "active": true,
+        "preferenceType": "gain",
+        "domain": [
+            "vhigh",
+            "high",
+            "med",
+            "low"
+        ],
+        "type": "condition"
+    },
+    {
+        "valueType": "enumeration",
+        "name": "maint",
+        "active": true,
+        "preferenceType": "gain",
+        "domain": [
+            "vhigh",
+            "high",
+            "med",
+            "low"
+        ],
+        "type": "condition"
+    },
+    {
+        "valueType": "enumeration",
+        "name": "doors",
+        "active": true,
+        "preferenceType": "gain",
+        "domain": [
+            "2",
+            "3",
+            "4"
+        ],
+        "type": "condition"
+    },
+    {
+        "valueType": "enumeration",
+        "name": "persons",
+        "active": true,
+        "preferenceType": "gain",
+        "domain": [
+            "2",
+            "4",
+            "more"
+        ],
+        "type": "condition"
+    },
+    {
+        "valueType": "enumeration",
+        "name": "lug_boot",
+        "active": true,
+        "preferenceType": "gain",
+        "domain": [
+            "small",
+            "med",
+            "big"
+        ],
+        "type": "condition"
+    },
+    {
+        "valueType": "enumeration",
+        "name": "safety",
+        "active": true,
+        "preferenceType": "gain",
+        "domain": [
+            "low",
+            "med",
+            "high"
+        ],
+        "type": "condition"
+    },
+    {
+        "valueType": "enumeration",
+        "name": "class",
+        "active": true,
+        "preferenceType": "gain",
+        "domain": [
+            "unacc",
+            "acc",
+            "good",
+            "vgood"
+        ],
+        "type": "decision"
+    }
+]

@@ -1,0 +1,110 @@
+[
+    {
+        "active": true,
+        "preferenceType": "cost",
+        "name": "CRIM",
+        "valueType": "real",
+        "type": "condition"
+    },
+    {
+        "active": true,
+        "preferenceType": "gain",
+        "name": "ZN",
+        "valueType": "real",
+        "type": "condition"
+    },
+    {
+        "active": true,
+        "preferenceType": "cost",
+        "name": "INDUS",
+        "valueType": "real",
+        "type": "condition"
+    },
+    {
+        "valueType": "enumeration",
+        "name": "CHAS",
+        "active": true,
+        "preferenceType": "gain",
+        "domain": [
+            "0",
+            "1"
+        ],
+        "type": "condition"
+    },
+    {
+        "active": true,
+        "preferenceType": "cost",
+        "name": "NOX",
+        "valueType": "real",
+        "type": "condition"
+    },
+    {
+        "active": true,
+        "preferenceType": "gain",
+        "name": "RM",
+        "valueType": "real",
+        "type": "condition"
+    },
+    {
+        "active": true,
+        "preferenceType": "cost",
+        "name": "AGE",
+        "valueType": "real",
+        "type": "condition"
+    },
+    {
+        "active": true,
+        "preferenceType": "cost",
+        "name": "DIS",
+        "valueType": "real",
+        "type": "condition"
+    },
+    {
+        "active": true,
+        "preferenceType": "gain",
+        "name": "RAD",
+        "valueType": "real",
+        "type": "condition"
+    },
+    {
+        "active": true,
+        "preferenceType": "cost",
+        "name": "TAX",
+        "valueType": "real",
+        "type": "condition"
+    },
+    {
+        "active": true,
+        "preferenceType": "cost",
+        "name": "PTRATIO",
+        "valueType": "real",
+        "type": "condition"
+    },
+    {
+        "active": true,
+        "preferenceType": "gain",
+        "name": "B",
+        "valueType": "real",
+        "type": "condition"
+    },
+    {
+        "active": true,
+        "preferenceType": "cost",
+        "name": "LSTAT",
+        "valueType": "real",
+        "type": "condition"
+    },
+    {
+        "valueType": "enumeration",
+        "name": "class",
+        "active": true,
+        "preferenceType": "gain",
+        "domain": [
+            "1",
+            "2",
+            "3",
+            "4"
+        ],
+        "type": "decision"
+    }
+]

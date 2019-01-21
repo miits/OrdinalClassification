@@ -1,0 +1,57 @@
+[
+    {
+        "active": true,
+        "preferenceType": "cost",
+        "name": "MYCT",
+        "valueType": "real",
+        "type": "condition"
+    },
+    {
+        "active": true,
+        "preferenceType": "gain",
+        "name": "MMIN",
+        "valueType": "real",
+        "type": "condition"
+    },
+    {
+        "active": true,
+        "preferenceType": "gain",
+        "name": "MMAX",
+        "valueType": "real",
+        "type": "condition"
+    },
+    {
+        "active": true,
+        "preferenceType": "gain",
+        "name": "CACH",
+        "valueType": "real",
+        "type": "condition"
+    },
+    {
+        "active": true,
+        "preferenceType": "gain",
+        "name": "CHMIN",
+        "valueType": "real",
+        "type": "condition"
+    },
+    {
+        "active": true,
+        "preferenceType": "gain",
+        "name": "CHMAX",
+        "valueType": "real",
+        "type": "condition"
+    },
+    {
+        "valueType": "enumeration",
+        "name": "class",
+        "active": true,
+        "preferenceType": "gain",
+        "domain": [
+            "0",
+            "1",
+            "2",
+            "3"
+        ],
+        "type": "decision"
+    }
+]
