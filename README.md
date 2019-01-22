@@ -1,4 +1,2 @@
 # DataAnalysis
-Libs required:
-* ruleLearn
-* univocity parsers
+Check .iml for libs required
