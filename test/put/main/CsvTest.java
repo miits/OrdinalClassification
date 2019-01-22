@@ -9,7 +9,7 @@ import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-class RuleLearnTest {
+class CsvTest {
     @Test
     void loadDataTest()
     {

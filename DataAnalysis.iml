@@ -29,5 +29,7 @@
       </library>
     </orderEntry>
     <orderEntry type="library" name="com.univocity:univocity-parsers:2.7.6" level="project" />
+    <orderEntry type="library" name="com.google.code.gson:gson:2.8.5" level="project" />
+    <orderEntry type="library" name="it.unimi.dsi:fastutil:8.2.2" level="project" />
   </component>
 </module>
