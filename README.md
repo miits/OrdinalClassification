@@ -1,4 +1,4 @@
 # DataAnalysis
 Libs required:
-*ruleLearn
-*univocity parsers
+* ruleLearn
+* univocity parsers
