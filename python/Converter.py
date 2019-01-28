@@ -161,7 +161,7 @@ class IsfProcessor:
 
 delimiters = dict({
     'balance_scale.isf': ',',
-    'breast-w.isf': ' ',
+    'breast-w.isf': '\t',
     'car.isf': '\t',
     'cpu.isf': '\t',
     'dataset1_noid.isf': '\t',
