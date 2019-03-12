@@ -1,32 +1,15 @@
 package put.utils;
 
-import org.rulelearn.data.Attribute;
-import org.rulelearn.data.InformationTableWithDecisionDistributions;
-import org.rulelearn.data.Table;
-import org.rulelearn.types.EvaluationField;
-import org.rulelearn.types.RealField;
-
 public class NumericalAttributeStats extends AttributeStats {
-    private double[] dataSeries;
     private double mean;
     private double variance;
     private double stdDev;
 
-    public NumericalAttributeStats(Attribute attribute, InformationTableWithDecisionDistributions data) {
-        super(attribute, data);
-        extractDataSeries(data);
+    public NumericalAttributeStats(int attributeIndex, double[] dataSeries) {
+        super(attributeIndex, dataSeries);
         calculateMean();
         calculateVariance();
         calculateStdDev();
-    }
-
-    private void extractDataSeries(InformationTableWithDecisionDistributions data) {
-        Table<EvaluationField> fields = data.getActiveConditionAttributeFields();
-        int datasetSize = fields.getNumberOfObjects();
-        this.dataSeries = new double[datasetSize];
-        for (int i = 0; i < datasetSize; i++) {
-            dataSeries [i] = ((RealField) fields.getField(i, attributeIndex)).getValue();
-        }
     }
 
     private void calculateMean() {

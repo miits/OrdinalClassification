@@ -18,6 +18,10 @@ public class JsonCsvDatasetIterator {
     public void iterate(DatasetOperation operation) {
         File[] jsonFiles = getFiles(this.jsonPath);
         File[] csvFiles = getFiles(this.csvPath);
+//        Test
+//        jsonFiles = getTestJson();
+//        csvFiles = getTestCsv();
+//        Test
         Iterator<File> jsonIterator = Arrays.stream(jsonFiles).iterator();
         Iterator<File> csvIterator = Arrays.stream(csvFiles).iterator();
         while (jsonIterator.hasNext() && csvIterator.hasNext()) {
@@ -30,6 +34,16 @@ public class JsonCsvDatasetIterator {
 
     private File[] getFiles(String directoryPath) {
         File[] files = new File(directoryPath).listFiles();
+        return files;
+    }
+
+    private File[] getTestCsv() {
+        File[] files = new File[] {new File(this.csvPath + "\\car.csv")};
+        return files;
+    }
+
+    private File[] getTestJson() {
+        File[] files = new File[] {new File(this.jsonPath + "\\car.json")};
         return files;
     }
 }

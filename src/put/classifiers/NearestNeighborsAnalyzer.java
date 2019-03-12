@@ -1,67 +1,49 @@
 package put.classifiers;
 
-import org.rulelearn.data.InformationTable;
 import put.measures.HVDM;
 
-import java.util.Arrays;
-import java.util.Comparator;
+import java.util.*;
+
+import static java.util.stream.Collectors.toMap;
 
 public abstract class NearestNeighborsAnalyzer {
     protected HVDM measure;
-    protected InformationTable data;
-    protected InformationTable examples;
-    protected int numberOfObjects;
-    protected int numberOfExamples;
-    protected double[][] distances;
+    protected int[] majorityIndices;
+    protected int[] minorityIndices;
+    protected HashMap<Integer, HashMap<Integer, Double>> distances;
 
-    protected class DistanceComparator implements Comparator<Integer> {
-        double[] distances;
-
-        DistanceComparator(double[] distances) {
-            this.distances = distances;
-        }
-
-        public Integer[] createIndexArray()
-        {
-            Integer[] indexes = new Integer[distances.length];
-            for (int i = 0; i < distances.length; i++)
-            {
-                indexes[i] = i;
-            }
-            return indexes;
-        }
-
-        @Override
-        public int compare(Integer o1, Integer o2) {
-            if (distances[o1] < distances[o2]) return -1;
-            if (distances[o1] > distances[o2]) return 1;
-            return 0;
-        }
-    }
-
-    public NearestNeighborsAnalyzer(HVDM measure, InformationTable data, InformationTable examples) {
+    public NearestNeighborsAnalyzer(HVDM measure, int[] majorityIndices, int[] minorityIndices) {
         this.measure = measure;
-        this.data = data;
-        this.examples = examples;
-        numberOfExamples = examples.getNumberOfObjects();
-        numberOfObjects = data.getNumberOfObjects();
+        this.majorityIndices = majorityIndices;
+        this.minorityIndices = minorityIndices;
+        this.distances = new HashMap<>();
         calculateDistances();
     }
 
     private void calculateDistances() {
-        for (int exampleIndex = 0; exampleIndex < numberOfExamples; exampleIndex++) {
-            for (int objectIndex = 0; objectIndex < numberOfObjects; objectIndex++) {
-                InformationTable x = examples.select(new int[]{exampleIndex}, true);
-                InformationTable y = examples.select(new int[]{objectIndex}, true);
-                distances[exampleIndex][objectIndex] = measure.measureDistance(x, y);
+        for (int exampleIndex: minorityIndices) {
+            HashMap<Integer, Double> exampleDistances = new HashMap<>();
+            for (int objectIndex: majorityIndices) {
+                exampleDistances.put(objectIndex, measure.measureDistance(exampleIndex, objectIndex));
             }
+            distances.put(exampleIndex, exampleDistances);
         }
     }
 
-    protected Integer[] getObjectsIndicesSortedByDistance(int exampleIndex) {
-        DistanceComparator comparator = new DistanceComparator(distances[exampleIndex]);
-        Integer[] indices = comparator.createIndexArray();
-        Arrays.sort(indices, comparator);
+    protected int[] getObjectsIndicesSortedByDistance(int exampleIndex) {
+        LinkedHashMap<Integer, Double> sorted =  distances.get(exampleIndex)
+                .entrySet()
+                .stream()
+                .sorted(Map.Entry.comparingByValue())
+                .collect(
+                        toMap(Map.Entry::getKey, Map.Entry::getValue, (e1, e2) -> e2,
+                                LinkedHashMap::new));
+        int[] indices = new int[sorted.size()];
+        int i = 0;
+        for (int key: sorted.keySet()) {
+            indices[i] = key;
+            i++;
+        }
         return indices;
     }
 }

@@ -1,16 +1,23 @@
 package put.utils;
 
+import it.unimi.dsi.fastutil.ints.IntSortedSet;
 import org.rulelearn.approximations.Union;
 import org.rulelearn.data.*;
+import put.classifiers.KNNAnalyzer;
+import put.measures.HVDM;
+import put.types.LearningExampleType;
 
 import java.io.IOException;
+import java.util.Arrays;
 import java.util.HashMap;
+import java.util.Iterator;
 
 public class NeighbourhoodAnalyzer implements DatasetOperation {
     private String jsonPath;
     private String csvPath;
     private String resultsPath;
     private DataSubsetExtractor dataExtractor;
+    private HVDM measure;
 
     public NeighbourhoodAnalyzer(String jsonPath, String csvPath, String resultsPath) {
         this.jsonPath = jsonPath;
@@ -19,7 +26,6 @@ public class NeighbourhoodAnalyzer implements DatasetOperation {
     }
 
     public NeighbourhoodAnalyzer() {
-
     }
 
     @Override
@@ -34,9 +40,9 @@ public class NeighbourhoodAnalyzer implements DatasetOperation {
         } catch (Exception e) {
             e.printStackTrace();
         }
-        this.jsonPath = args[0];
-        this.csvPath = args[1];
-        this.resultsPath = args[2];
+        jsonPath = args[0];
+        csvPath = args[1];
+        resultsPath = args[2];
     }
 
     private void checkArgs(String[] args) throws IllegalArgumentException{
@@ -57,21 +63,35 @@ public class NeighbourhoodAnalyzer implements DatasetOperation {
 
     private void loadData() throws IOException {
         InformationTableWithDecisionDistributions informationTable = new InformationTableWithDecisionDistributions(
-                InformationTableBuilder.safelyBuildFromCSVFile(this.jsonPath, this.csvPath, false));
-        this.dataExtractor = new DataSubsetExtractor(informationTable);
+                InformationTableBuilder.safelyBuildFromCSVFile(jsonPath, csvPath, false));
+        dataExtractor = new DataSubsetExtractor(informationTable);
+        measure = new HVDM(dataExtractor.getData());
     }
 
     private void analyze() {
-        Union[] atLeastUnions = this.dataExtractor.getAtLeastUnions();
-        Union[] atMostUnions = this.dataExtractor.getAtMostUnions();
+        Union[] atLeastUnions = dataExtractor.getAtLeastUnions();
+        Union[] atMostUnions = dataExtractor.getAtMostUnions();
         unionVsUnionAnalysis(atLeastUnions, atMostUnions);
-        HashMap<Decision, InformationTable> classesByDecision = this.dataExtractor.getClassesByDecision();
+        HashMap<Decision, InformationTable> classesByDecision = dataExtractor.getClassesByDecision();
         classVsUnionAnalysis(classesByDecision, atLeastUnions, atMostUnions);
     }
 
     private void unionVsUnionAnalysis(Union[] atLeastUnions, Union[] atMostUnions) {
-//        kNearestAnalysis();
-//        kernelAnalysis();
+        Iterator<Union> atLeastUnionIterator = Arrays.stream(atLeastUnions).iterator();
+        Iterator<Union> atMostUnionIterator = Arrays.stream(atMostUnions).iterator();
+        while (atLeastUnionIterator.hasNext() && atMostUnionIterator.hasNext()) {
+            IntSortedSet atLeastObjects = atLeastUnionIterator.next().getObjects();
+            IntSortedSet atMostObjects = atMostUnionIterator.next().getObjects();
+            int[] atLeast = new int[atLeastObjects.size()];
+            int[] atMost = new int[atMostObjects.size()];
+            atLeastObjects.toArray(atLeast);
+            atMostObjects.toArray(atMost);
+            if (atLeast.length > atMost.length) {
+                kNNAndKernelAnalysis(atLeast, atMost);
+            } else {
+                kNNAndKernelAnalysis(atMost, atLeast);
+            }
+        }
     }
 
     private void classVsUnionAnalysis(HashMap<Decision, InformationTable> classesByDecision, Union[] atLeastUnions, Union[] atMostUnions) {
@@ -79,11 +99,19 @@ public class NeighbourhoodAnalyzer implements DatasetOperation {
 //        kernelAnalysis();
     }
 
-    private void kNearestAnalysis(InformationTable minorotyExamples, InformationTable majorityExamples) {
-
+    private void kNNAndKernelAnalysis(int[] majorityInidices, int[] minorityIndices) {
+        kNearestAnalysis(majorityInidices, minorityIndices);
+        kernelAnalysis(majorityInidices, minorityIndices);
     }
 
-    private void kernelAnalysis(InformationTable minorotyExamples, InformationTable majorityExamples) {
+    private void kNearestAnalysis(int[] majorityIndices, int[] minorityIndices) {
+        KNearestLabeler labeler = new KNearestLabeler(4, 2, 1);
+        KNNAnalyzer analyzer = new KNNAnalyzer(measure, majorityIndices, minorityIndices, 5, labeler);
+        analyzer.labelExamples();
+        HashMap<Integer, LearningExampleType> labelsAssignment = analyzer.getLabelsAssignment();
+    }
+
+    private void kernelAnalysis(int[] majorityindices, int[] minorityIndices) {
 
     }
 

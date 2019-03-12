@@ -1,40 +1,39 @@
 package put.classifiers;
 
 import org.rulelearn.data.Decision;
-import org.rulelearn.data.InformationTable;
 import put.measures.HVDM;
 import put.types.LearningExampleType;
 import put.utils.KNearestLabeler;
 
-import java.util.Arrays;
+import java.util.HashMap;
 
 public class KNNAnalyzer extends NearestNeighborsAnalyzer {
     private int k;
     private KNearestLabeler labeler;
-    private LearningExampleType[] labelsAssignment;
+    private HashMap<Integer, LearningExampleType> labelsAssignment;
 
-    public KNNAnalyzer(HVDM measure, InformationTable data, InformationTable examples, int k, KNearestLabeler labeler) {
-        super(measure, data, examples);
+    public KNNAnalyzer(HVDM measure, int[] majorityIndices, int[] minorityIndices, int k, KNearestLabeler labeler) {
+        super(measure, majorityIndices, minorityIndices);
         this.k = k;
         this.labeler = labeler;
-        this.labelsAssignment = new LearningExampleType[numberOfExamples];
+        this.labelsAssignment = new HashMap<>();
     }
 
     public void labelExamples() {
-        for (int i = 0; i < numberOfExamples; i++) {
-            labelsAssignment[i] = labelExample(i);
+        for (int index: minorityIndices) {
+            labelsAssignment.put(index, labelExample(index));
         }
     }
 
     private LearningExampleType labelExample(int exampleIndex) {
         int[] kNearest = getKNearestIndices(exampleIndex);
         Decision[] decisions = getDecisions(kNearest);
-        int sameClassAmount = countSameDecisions(decisions, examples.getDecision(exampleIndex));
+        int sameClassAmount = countSameDecisions(decisions, measure.getData().getDecision(exampleIndex));
         return labeler.labelExample(sameClassAmount);
     }
 
     private int[] getKNearestIndices(int exampleIndex) {
-        Integer[] indices = getObjectsIndicesSortedByDistance(exampleIndex);
+        int[] indices = getObjectsIndicesSortedByDistance(exampleIndex);
         int[] kNearesIndices = new int[k];
         for (int i = 0; i < k; i++) {
             kNearesIndices[i] = indices[i];
@@ -44,8 +43,10 @@ public class KNNAnalyzer extends NearestNeighborsAnalyzer {
 
     private Decision[] getDecisions(int[] objectIndices) {
         Decision[] decisions = new Decision[objectIndices.length];
+        int i = 0;
         for (int index: objectIndices) {
-            decisions[index] = data.getDecision(index);
+            decisions[i] = measure.getData().getDecision(index);
+            i++;
         }
         return decisions;
     }
@@ -60,7 +61,7 @@ public class KNNAnalyzer extends NearestNeighborsAnalyzer {
         return count;
     }
 
-    public LearningExampleType[] getLabelsAssignment() {
+    public HashMap<Integer, LearningExampleType> getLabelsAssignment() {
         return labelsAssignment;
     }
 }
