@@ -1,5 +1,7 @@
 package put.utils;
 
+import org.apache.commons.io.FilenameUtils;
+
 import java.io.File;
 import java.util.Arrays;
 import java.util.Iterator;
@@ -19,15 +21,16 @@ public class JsonCsvDatasetIterator {
         File[] jsonFiles = getFiles(this.jsonPath);
         File[] csvFiles = getFiles(this.csvPath);
 //        Test
-//        jsonFiles = getTestJson();
-//        csvFiles = getTestCsv();
+        jsonFiles = getTestJson();
+        csvFiles = getTestCsv();
 //        Test
         Iterator<File> jsonIterator = Arrays.stream(jsonFiles).iterator();
         Iterator<File> csvIterator = Arrays.stream(csvFiles).iterator();
         while (jsonIterator.hasNext() && csvIterator.hasNext()) {
             File json = jsonIterator.next();
             File csv = csvIterator.next();
-            String[] paths = {json.getPath(), csv.getPath(), this.resultsPath};
+            String resultsPath = String.format("%s\\%s", this.resultsPath, FilenameUtils.removeExtension(json.getName()));
+            String[] paths = {json.getPath(), csv.getPath(), resultsPath};
             operation.carryOut(paths);
         }
     }
