@@ -1,5 +1,7 @@
 package org.ordinalclassification.classifiers;
 
+import org.ordinalclassification.types.DistanceArray;
+import org.ordinalclassification.types.LearningExampleType;
 import org.rulelearn.measures.HVDM;
 
 import java.util.*;
@@ -10,28 +12,31 @@ public abstract class NearestNeighborsAnalyzer {
     protected HVDM measure;
     protected int[] majorityIndices;
     protected int[] minorityIndices;
-    protected HashMap<Integer, HashMap<Integer, Double>> distances;
+    protected DistanceArray distances;
+    protected HashMap<Integer, LearningExampleType> labelsAssignment;
 
     public NearestNeighborsAnalyzer(HVDM measure, int[] majorityIndices, int[] minorityIndices) {
         this.measure = measure;
         this.majorityIndices = majorityIndices;
         this.minorityIndices = minorityIndices;
-        this.distances = new HashMap<>();
-        calculateDistances();
+        this.labelsAssignment = new HashMap<>();
+        this.distances = new DistanceArray(measure);
     }
 
-    private void calculateDistances() {
-        for (int exampleIndex: minorityIndices) {
-            HashMap<Integer, Double> exampleDistances = new HashMap<>();
-            for (int objectIndex: majorityIndices) {
-                exampleDistances.put(objectIndex, measure.measureDistance(exampleIndex, objectIndex));
-            }
-            distances.put(exampleIndex, exampleDistances);
+    public void labelExamples() {
+        for (int index: minorityIndices) {
+            labelsAssignment.put(index, labelExample(index));
         }
     }
 
-    protected int[] getObjectsIndicesSortedByDistance(int exampleIndex) {
-        LinkedHashMap<Integer, Double> sorted =  distances.get(exampleIndex)
+    public HashMap<Integer, LearningExampleType> getLabelsAssignment() {
+        return labelsAssignment;
+    }
+
+    protected LearningExampleType labelExample(int exampleIndex) { return LearningExampleType.SAFE; }
+
+    protected int[] getObjectsIndicesSortedByDistance(int exampleIndex, HashMap<Integer, Double> distances) {
+        LinkedHashMap<Integer, Double> sorted =  distances
                 .entrySet()
                 .stream()
                 .sorted(Map.Entry.comparingByValue())

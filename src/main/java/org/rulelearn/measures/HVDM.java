@@ -66,7 +66,7 @@ public class HVDM implements Measure {
     public double measureDistance(int xIndex, int yIndex) {
         double distance = 0;
         for (int i = 0; i < numberOfAttributes; i++) {
-            distance += getDistance(i, xIndex, yIndex);
+            distance += Math.pow(getDistance(i, xIndex, yIndex), 2);
         }
         return distance;
     }

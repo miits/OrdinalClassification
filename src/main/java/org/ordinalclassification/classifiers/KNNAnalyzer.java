@@ -10,22 +10,15 @@ import java.util.HashMap;
 public class KNNAnalyzer extends NearestNeighborsAnalyzer {
     private int k;
     private KNearestLabeler labeler;
-    private HashMap<Integer, LearningExampleType> labelsAssignment;
 
     public KNNAnalyzer(HVDM measure, int[] majorityIndices, int[] minorityIndices, int k, KNearestLabeler labeler) {
         super(measure, majorityIndices, minorityIndices);
         this.k = k;
         this.labeler = labeler;
-        this.labelsAssignment = new HashMap<>();
     }
 
-    public void labelExamples() {
-        for (int index: minorityIndices) {
-            labelsAssignment.put(index, labelExample(index));
-        }
-    }
-
-    private LearningExampleType labelExample(int exampleIndex) {
+    @Override
+    protected LearningExampleType labelExample(int exampleIndex) {
         int[] kNearest = getKNearestIndices(exampleIndex);
         Decision[] decisions = getDecisions(kNearest);
         int sameClassAmount = countSameDecisions(decisions, measure.getData().getDecision(exampleIndex));
@@ -33,7 +26,8 @@ public class KNNAnalyzer extends NearestNeighborsAnalyzer {
     }
 
     private int[] getKNearestIndices(int exampleIndex) {
-        int[] indices = getObjectsIndicesSortedByDistance(exampleIndex);
+        HashMap<Integer, Double> exampleDistances = distances.getExampleDistances(exampleIndex);
+        int[] indices = getObjectsIndicesSortedByDistance(exampleIndex, exampleDistances);
         int[] kNearesIndices = new int[k];
         for (int i = 0; i < k; i++) {
             kNearesIndices[i] = indices[i];
@@ -59,9 +53,5 @@ public class KNNAnalyzer extends NearestNeighborsAnalyzer {
             }
         }
         return count;
-    }
-
-    public HashMap<Integer, LearningExampleType> getLabelsAssignment() {
-        return labelsAssignment;
     }
 }

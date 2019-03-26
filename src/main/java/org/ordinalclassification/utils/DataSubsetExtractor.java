@@ -15,7 +15,7 @@ public class DataSubsetExtractor {
     private int datasetSize;
     private Union[] atLeastUnions;
     private Union[] atMostUnions;
-    private HashMap<Decision, InformationTable> classesByDecision;
+    private HashMap<Decision, int[]> classesByDecision;
 
     public InformationTableWithDecisionDistributions getData() {
         return data;
@@ -38,7 +38,7 @@ public class DataSubsetExtractor {
         return atMostUnions;
     }
 
-    public HashMap<Decision, InformationTable> getClassesByDecision() {
+    public HashMap<Decision, int[]> getClassesByDecision() {
         return classesByDecision;
     }
 
@@ -56,12 +56,11 @@ public class DataSubsetExtractor {
         this.atMostUnions = unions.getDownwardUnions();
     }
 
-    private HashMap<Decision, InformationTable> buildClassesByDecision() {
-        HashMap<Decision, InformationTable> classesByDecision = new HashMap<>();
+    private HashMap<Decision, int[]> buildClassesByDecision() {
+        HashMap<Decision, int[]> classesByDecision = new HashMap<>();
         for (Decision decision: decisions) {
             int[] classIndices = selectIndicesWithDecision(decision);
-            InformationTable classSamples = data.select(classIndices,true);
-            classesByDecision.put(decision, classSamples);
+            classesByDecision.put(decision, classIndices);
         }
         return classesByDecision;
     }

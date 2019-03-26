@@ -6,9 +6,9 @@ import org.ordinalclassification.utils.NeighbourhoodAnalyzer;
 public class Main {
 
     public static void main(String[] args) {
-        String jsonPath = ".\\data\\json";
-        String csvPath = ".\\data\\csv";
-        String resultsPath = ".\\results";
+        String jsonPath = ".\\data\\nonOrdinal\\gen\\json";
+        String csvPath = ".\\data\\nonOrdinal\\gen\\csv";
+        String resultsPath = ".\\results\\nonOrdinal\\gen";
         JsonCsvDatasetIterator iterator = new JsonCsvDatasetIterator(jsonPath, csvPath, resultsPath);
         NeighbourhoodAnalyzer analyzer = new NeighbourhoodAnalyzer();
         iterator.iterate(analyzer);

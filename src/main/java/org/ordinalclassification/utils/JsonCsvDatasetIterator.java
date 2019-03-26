@@ -20,17 +20,17 @@ public class JsonCsvDatasetIterator {
     public void iterate(DatasetOperation operation) {
         File[] jsonFiles = getFiles(this.jsonPath);
         File[] csvFiles = getFiles(this.csvPath);
-//        Test
-        jsonFiles = getTestJson();
-        csvFiles = getTestCsv();
-//        Test
         Iterator<File> jsonIterator = Arrays.stream(jsonFiles).iterator();
         Iterator<File> csvIterator = Arrays.stream(csvFiles).iterator();
+        int datasetsCount = jsonFiles.length;
+        int counter = 0;
         while (jsonIterator.hasNext() && csvIterator.hasNext()) {
             File json = jsonIterator.next();
             File csv = csvIterator.next();
-            String resultsPath = String.format("%s\\%s", this.resultsPath, FilenameUtils.removeExtension(json.getName()));
+            String datasetName = FilenameUtils.removeExtension(json.getName());
+            String resultsPath = String.format("%s\\%s", this.resultsPath, datasetName);
             String[] paths = {json.getPath(), csv.getPath(), resultsPath};
+            System.out.println(String.format("[JsonCsvDatasetIterator] Processing dataset: %s (%d/%d)", datasetName, ++counter, datasetsCount));
             operation.carryOut(paths);
         }
     }
@@ -41,12 +41,12 @@ public class JsonCsvDatasetIterator {
     }
 
     private File[] getTestCsv() {
-        File[] files = new File[] {new File(this.csvPath + "\\car.csv")};
+        File[] files = new File[] {new File("data\\test\\csv\\car.csv")};
         return files;
     }
 
     private File[] getTestJson() {
-        File[] files = new File[] {new File(this.jsonPath + "\\car.json")};
+        File[] files = new File[] {new File("data\\test\\json\\car.json")};
         return files;
     }
 }

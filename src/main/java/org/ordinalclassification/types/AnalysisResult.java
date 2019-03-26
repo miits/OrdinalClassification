@@ -9,37 +9,9 @@ import java.util.List;
 import java.util.Map;
 
 public class AnalysisResult {
-    private class ResultsRow {
-        private int index;
-        private LearningExampleType type;
-        private String minorityDecision;
-        private String majorityDecision;
 
-        public ResultsRow(int index, LearningExampleType type, String minorityDecision, String majorityDecision) {
-            this.index = index;
-            this.type = type;
-            this.minorityDecision = minorityDecision;
-            this.majorityDecision = majorityDecision;
-        }
 
-        public String getIndex() {
-            return String.valueOf(index);
-        }
-
-        public String getType() {
-            return String.valueOf(type);
-        }
-
-        public String getMinorityDecision() {
-            return minorityDecision;
-        }
-
-        public String getMajorityDecision() {
-            return majorityDecision;
-        }
-    }
-
-    private List<ResultsRow> results;
+    private List<ResultRow> results;
     private static String csvSeparator = ";";
 
     public AnalysisResult() {
@@ -48,7 +20,7 @@ public class AnalysisResult {
 
     public void addResults(HashMap<Integer, LearningExampleType> assignment, Decision minorityUnionLimitingDecision, Decision majorityUnionLimitingDecision) {
         for (Map.Entry<Integer, LearningExampleType> entry: assignment.entrySet()) {
-            AnalysisResult.ResultsRow row = new AnalysisResult.ResultsRow(entry.getKey(), entry.getValue(), minorityUnionLimitingDecision.toString(), majorityUnionLimitingDecision.toString());
+            ResultRow row = new ResultRow(entry.getKey(), entry.getValue(), minorityUnionLimitingDecision.toString(), majorityUnionLimitingDecision.toString());
             results.add(row);
         }
     }
@@ -56,7 +28,7 @@ public class AnalysisResult {
     public void saveCsv(String filename) throws IOException {
         BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(new FileOutputStream(filename), "UTF-8"));
         writeHeaders(bw);
-        for (ResultsRow row: results)
+        for (ResultRow row: results)
         {
             StringBuffer oneLine = new StringBuffer();
             oneLine.append(row.getIndex());
@@ -84,5 +56,9 @@ public class AnalysisResult {
         oneLine.append("majority_decision");
         bw.write(oneLine.toString());
         bw.newLine();
+    }
+
+    public List<ResultRow> getPerExampleResults() {
+        return results;
     }
 }
