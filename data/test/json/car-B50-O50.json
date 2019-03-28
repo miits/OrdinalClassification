@@ -1,0 +1,36 @@
+[
+    {
+        "valueType": "enumeration",
+        "name": "buying",
+        "active": true,
+        "preferenceType": "gain",
+        "domain": [
+            "vhigh",
+            "high"
+        ],
+        "type": "condition"
+    },
+    {
+        "valueType": "enumeration",
+        "name": "doors",
+        "active": true,
+        "preferenceType": "gain",
+        "domain": [
+            "2",
+            "3",
+            "4"
+        ],
+        "type": "condition"
+    },
+    {
+        "valueType": "enumeration",
+        "name": "class",
+        "active": true,
+        "preferenceType": "gain",
+        "domain": [
+            "unacc",
+            "acc"
+        ],
+        "type": "decision"
+    }
+]
