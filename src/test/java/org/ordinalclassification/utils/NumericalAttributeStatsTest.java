@@ -44,8 +44,8 @@ class NumericalAttributeStatsTest {
     @Test
     void shouldCalculateCorrectValues() {
         double correctMean = 2;
-        double correctVariance = 2.5;
-        double correctStdDev = 1.5811;
+        double correctVariance = 2.0;
+        double correctStdDev = 1.4142;
         NumericalAttributeStats stats = new NumericalAttributeStats(0, DataSubsetExtractor.get2dArrayColumn(valuesArray, 0));
         assertEquals(correctMean, stats.getMean());
         assertEquals(correctVariance, stats.getVariance());

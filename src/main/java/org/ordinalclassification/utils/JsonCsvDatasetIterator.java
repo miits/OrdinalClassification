@@ -36,7 +36,13 @@ public class JsonCsvDatasetIterator {
     }
 
     private File[] getFiles(String directoryPath) {
-        File[] files = new File(directoryPath).listFiles();
+        File file = new File(directoryPath);
+        File[] files = null;
+        if (file.isDirectory()) {
+            files = file.listFiles();
+        } else if (file.isFile()) {
+            files = new File[] {file};
+        }
         return files;
     }
 

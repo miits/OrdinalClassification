@@ -103,7 +103,8 @@ public class HVDM implements Measure {
     private double normalizedDiffForAttribute(int attributeIndex, int xIndex, int yIndex) {
         NumericalAttributeStats attributeStats = (NumericalAttributeStats) valueStatsByAttributeIndex.get(attributeIndex);
         double diff = Math.abs(values[xIndex][attributeIndex] - values[yIndex][attributeIndex]);
-        return diff / 4 * attributeStats.getStdDev();
+        double normalization = 4.0 * attributeStats.getStdDev();
+        return diff / normalization;
     }
 
     public InformationTableWithDecisionDistributions getData() {
