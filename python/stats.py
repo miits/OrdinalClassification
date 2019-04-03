@@ -1,9 +1,7 @@
 import os
 import pandas as pd
 import csv
-
-CSV_PATH = os.path.join('..', 'results', 'nonOrdinal', 'gen')
-RESULTS_PATH = os.path.join('..', 'results', 'percentage', 'nonOrdinal', 'gen')
+from argparse import ArgumentParser
 
 
 def count(path_to_file, dataset_name):
@@ -40,24 +38,35 @@ def analyze(path):
             if filename.startswith('union'):
                 union_kernel_results = count(path_to_file, dataset_name)
             else:
-                class_kernel_results = count(path_to_file,dataset_name)
+                class_kernel_results = count(path_to_file, dataset_name)
     return union_knn_results, union_kernel_results, class_knn_results, class_kernel_results
 
 
-union_knn_results = []
-union_kernel_results = []
-class_knn_results = []
-class_kernel_results = []
-for entry in os.scandir(CSV_PATH):
-    if entry.is_dir:
-        path = os.path.join(CSV_PATH, entry.name)
-        union_knn_res, union_kernel_res, class_knn_res, class_kernel_res = analyze(path)
-        union_knn_results.append(union_knn_res)
-        union_kernel_results.append(union_kernel_res)
-        class_knn_results.append(class_knn_res)
-        class_kernel_results.append(class_kernel_res)
-fieldnames = ['name', 'safe', 'borderline', 'rare', 'outlier']
-save_csv(union_knn_results, fieldnames, os.path.join(RESULTS_PATH, 'union_knn.csv'))
-save_csv(union_kernel_results, fieldnames, os.path.join(RESULTS_PATH, 'union_kernel.csv'))
-save_csv(class_knn_results, fieldnames, os.path.join(RESULTS_PATH, 'class_knn.csv'))
-save_csv(class_kernel_results, fieldnames, os.path.join(RESULTS_PATH, 'class_kernel.csv'))
+def make_stats(csv_path, results_path):
+    union_knn_results = []
+    union_kernel_results = []
+    class_knn_results = []
+    class_kernel_results = []
+    for entry in os.scandir(csv_path):
+        if entry.is_dir:
+            path = os.path.join(csv_path, entry.name)
+            union_knn_res, union_kernel_res, class_knn_res, class_kernel_res = analyze(path)
+            union_knn_results.append(union_knn_res)
+            union_kernel_results.append(union_kernel_res)
+            class_knn_results.append(class_knn_res)
+            class_kernel_results.append(class_kernel_res)
+    fieldnames = ['name', 'safe', 'borderline', 'rare', 'outlier']
+    save_csv(union_knn_results, fieldnames, os.path.join(results_path, 'union_knn.csv'))
+    save_csv(union_kernel_results, fieldnames, os.path.join(results_path, 'union_kernel.csv'))
+    save_csv(class_knn_results, fieldnames, os.path.join(results_path, 'class_knn.csv'))
+    save_csv(class_kernel_results, fieldnames, os.path.join(results_path, 'class_kernel.csv'))
+
+
+def main():
+    parser = ArgumentParser()
+    parser.add_argument("-c", "--csvpath", dest="filename",
+                        help="path to csv containing examples labelling")
+    parser.add_argument("-r", "--resultsdir", dest="filename",
+                        help="path to output directory")
+    args = parser.parse_args()
+    make_stats(args[0], args[1])
