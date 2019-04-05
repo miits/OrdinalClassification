@@ -1,0 +1,20 @@
+[
+    {
+        "name": "1d-position",
+        "active": true,
+        "valueType": "real",
+        "preferenceType": "gain",
+        "type": "condition"
+    },
+    {
+        "name": "status",
+        "active": true,
+        "valueType": "enumeration",
+        "preferenceType": "gain",
+        "type": "decision",
+        "domain": [
+            "1",
+            "2"
+        ]
+    }
+]
