@@ -35,7 +35,7 @@ public abstract class NearestNeighborsAnalyzer {
 
     protected LearningExampleType labelExample(int exampleIndex) { return LearningExampleType.SAFE; }
 
-    protected int[] getObjectsIndicesSortedByDistance(int exampleIndex, HashMap<Integer, Double> distances) {
+    protected int[] getObjectsIndicesSortedByDistance(HashMap<Integer, Double> distances) {
         LinkedHashMap<Integer, Double> sorted =  distances
                 .entrySet()
                 .stream()

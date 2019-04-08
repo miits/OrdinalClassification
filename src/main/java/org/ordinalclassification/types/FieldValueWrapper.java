@@ -10,7 +10,7 @@ public class FieldValueWrapper {
     private boolean isMissing;
 
     public FieldValueWrapper(Field field) {
-        value = 0;
+        value = 0.0;
         isMissing = false;
         if (field instanceof EnumerationField) {
             EnumerationField enumField = (EnumerationField) field;

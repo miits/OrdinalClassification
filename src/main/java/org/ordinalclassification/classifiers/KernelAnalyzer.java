@@ -6,7 +6,6 @@ import org.rulelearn.measures.HVDM;
 import org.ordinalclassification.utils.KernelLabeler;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.HashMap;
 
 public class KernelAnalyzer extends NearestNeighborsAnalyzer {
@@ -24,7 +23,7 @@ public class KernelAnalyzer extends NearestNeighborsAnalyzer {
     }
 
     private void setKernelWidth() {
-        double sum = 0;
+        double sum = 0.0;
         for (int i: minorityIndices) {
             sum += getDistanceToNthNeighbour(i, 5);
         }
@@ -33,25 +32,25 @@ public class KernelAnalyzer extends NearestNeighborsAnalyzer {
 
     private double getDistanceToNthNeighbour(int exampleIndex, int n) {
         HashMap<Integer, Double> exampleDistances = distances.getExampleDistances(exampleIndex);
-        int[] objectsIndicesSorted = getObjectsIndicesSortedByDistance(exampleIndex, exampleDistances);
+        int[] objectsIndicesSorted = getObjectsIndicesSortedByDistance(exampleDistances);
         return distances.getDistance(exampleIndex, objectsIndicesSorted[n - 1]);
     }
 
     @Override
     protected LearningExampleType labelExample(int exampleIndex) {
         int[] inKernel = getIndicesOfObjectsInKernel(exampleIndex);
-        double minorityDecisionWeightedSum = weightedCountForDecision(inKernel, exampleIndex, minorityLimitingDecision);
-        double majorityDecisionWeightedSum = weightedCountForDecision(inKernel, exampleIndex, majorityLimitingDecision);
+        double minorityDecisionWeightedSum = weightedSumForDecision(inKernel, exampleIndex, minorityLimitingDecision);
+        double majorityDecisionWeightedSum = weightedSumForDecision(inKernel, exampleIndex, majorityLimitingDecision);
         double ratio = minorityDecisionWeightedSum / (minorityDecisionWeightedSum + majorityDecisionWeightedSum);
         return labeler.labelExample(ratio);
     }
 
     private int[] getIndicesOfObjectsInKernel(int exampleIndex) {
         HashMap<Integer, Double> exampleDistances = distances.getExampleDistances(exampleIndex);
-        int[] objectsIndicesSorted = getObjectsIndicesSortedByDistance(exampleIndex, exampleDistances);
+        int[] objectsIndicesSorted = getObjectsIndicesSortedByDistance(exampleDistances);
         ArrayList<Integer> inKernelWindow = new ArrayList();
         for (int i: objectsIndicesSorted) {
-            if (exampleDistances.get(i) > kernelWidth) {
+            if (exampleDistances.get(i) >= kernelWidth) {
                 break;
             }
             inKernelWindow.add(i);
@@ -65,8 +64,8 @@ public class KernelAnalyzer extends NearestNeighborsAnalyzer {
         return inKernelWindowArr;
     }
 
-    private double weightedCountForDecision(int[] inKernel, int exampleIndex, Decision decision) {
-        double sum = 0;
+    private double weightedSumForDecision(int[] inKernel, int exampleIndex, Decision decision) {
+        double sum = 0.0;
         for (int index: inKernel) {
             if (measure.getData().getDecision(index).equals(decision)) {
                 sum += getEpanechnikov(distances.getDistance(exampleIndex, index));
@@ -76,6 +75,7 @@ public class KernelAnalyzer extends NearestNeighborsAnalyzer {
     }
 
     private double getEpanechnikov(double distance) {
-        return 3.0 / 4.0 * (1 - Math.pow(distance, 2));
+        double u = distance / kernelWidth;
+        return 3.0 / 4.0 * (1.0 - Math.pow(u, 2.0));
     }
 }

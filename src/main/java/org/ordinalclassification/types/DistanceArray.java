@@ -28,7 +28,7 @@ public class DistanceArray {
 
     public double getDistance(int xIndex, int yIndex) {
         if (xIndex == yIndex) {
-            return 0;
+            return 0.0;
         }
         return xIndex > yIndex ? distances.get(xIndex).get(yIndex) : distances.get(yIndex).get(xIndex);
     }

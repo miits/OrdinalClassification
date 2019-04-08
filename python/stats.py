@@ -64,9 +64,13 @@ def make_stats(csv_path, results_path):
 
 def main():
     parser = ArgumentParser()
-    parser.add_argument("-c", "--csvpath", dest="filename",
+    parser.add_argument("-c", "--csvpath", dest="csv",
                         help="path to csv containing examples labelling")
-    parser.add_argument("-r", "--resultsdir", dest="filename",
+    parser.add_argument("-r", "--resultsdir", dest="results",
                         help="path to output directory")
     args = parser.parse_args()
-    make_stats(args[0], args[1])
+    make_stats(args.csv, args.results)
+
+
+if __name__ == "__main__":
+    main()

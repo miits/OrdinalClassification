@@ -1,6 +1,6 @@
 index;type;minority_decision;majority_decision
 1280;BORDERLINE;6=>good;6=>rest
-1537;BORDERLINE;6=>good;6=>rest
+1537;RARE;6=>good;6=>rest
 1282;SAFE;6=>good;6=>rest
 1667;BORDERLINE;6=>good;6=>rest
 1285;SAFE;6=>good;6=>rest
@@ -34,9 +34,9 @@ index;type;minority_decision;majority_decision
 1717;SAFE;6=>good;6=>rest
 1591;SAFE;6=>good;6=>rest
 1721;BORDERLINE;6=>good;6=>rest
-1211;RARE;6=>good;6=>rest
+1211;BORDERLINE;6=>good;6=>rest
 1723;SAFE;6=>good;6=>rest
-1213;BORDERLINE;6=>good;6=>rest
+1213;RARE;6=>good;6=>rest
 1726;SAFE;6=>good;6=>rest
 1604;BORDERLINE;6=>good;6=>rest
 1606;SAFE;6=>good;6=>rest
@@ -56,8 +56,8 @@ index;type;minority_decision;majority_decision
 1253;BORDERLINE;6=>good;6=>rest
 1255;SAFE;6=>good;6=>rest
 1258;SAFE;6=>good;6=>rest
-1643;RARE;6=>good;6=>rest
-1645;BORDERLINE;6=>good;6=>rest
+1643;BORDERLINE;6=>good;6=>rest
+1645;RARE;6=>good;6=>rest
 1262;BORDERLINE;6=>good;6=>rest
 1264;SAFE;6=>good;6=>rest
 1267;SAFE;6=>good;6=>rest
@@ -66,5 +66,5 @@ index;type;minority_decision;majority_decision
 1528;RARE;6=>good;6=>rest
 1658;BORDERLINE;6=>good;6=>rest
 1661;OUTLIER;6=>good;6=>rest
-1535;RARE;6=>good;6=>rest
+1535;BORDERLINE;6=>good;6=>rest
 1663;SAFE;6=>good;6=>rest

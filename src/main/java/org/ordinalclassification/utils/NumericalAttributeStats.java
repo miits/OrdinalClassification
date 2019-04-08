@@ -23,7 +23,7 @@ public class NumericalAttributeStats extends AttributeStats {
         double temp = 0;
         for (double x: dataSeries)
             temp += Math.pow(x - mean, 2);
-        this.variance = temp / (dataSeries.length);
+        this.variance = temp / (dataSeries.length - 1);
     }
 
     private void calculateStdDev() {

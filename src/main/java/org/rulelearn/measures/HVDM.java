@@ -28,7 +28,7 @@ public class HVDM implements Measure {
         this.attributeIsNominal = new boolean[numberOfAttributes];
         this.nominalAttributeValuesNumber = new int[numberOfAttributes];
         for (int i = 0; i < numberOfAttributes; i++) {
-            Attribute attribute = data.getAttribute(i);
+            Attribute attribute = data.getActiveConditionAttributeFields().getAttributes()[i];
             Field field = attribute.getValueType();
             if (field instanceof EnumerationField) {
                 attributeIsNominal[i] = true;
@@ -44,7 +44,7 @@ public class HVDM implements Measure {
         this.missingValues = new boolean[data.getNumberOfObjects()][numberOfAttributes];
         for (int i = 0; i < data.getNumberOfObjects(); i++) {
             for (int j = 0; j < numberOfAttributes; j++) {
-                FieldValueWrapper fieldValue = new FieldValueWrapper(data.getField(i, j));
+                FieldValueWrapper fieldValue = new FieldValueWrapper(data.getActiveConditionAttributeFields().getField(i, j));
                 values[i][j] = fieldValue.getValue();
                 missingValues[i][j] = fieldValue.isMissing();
             }
@@ -66,9 +66,9 @@ public class HVDM implements Measure {
     public double measureDistance(int xIndex, int yIndex) {
         double distance = 0;
         for (int i = 0; i < numberOfAttributes; i++) {
-            distance += Math.pow(getDistance(i, xIndex, yIndex), 2);
+            distance += Math.pow(getDistance(i, xIndex, yIndex), 2.0);
         }
-        return distance;
+        return Math.sqrt(distance);
     }
 
     private double getDistance(int attributeIndex, int xIndex, int yIndex) {
@@ -94,9 +94,8 @@ public class HVDM implements Measure {
             double pX = xValueCount == 0 ? 0 : (double) xValueClassCount / (double) xValueCount;
             double pY = yValueCount == 0 ? 0 : (double) yValueClassCount / (double) yValueCount;
             double diff = Math.abs(pX - pY);
-            normalizedVDM += Math.pow(diff, 2);
+            normalizedVDM += Math.pow(diff, 2.0);
         }
-        normalizedVDM = Math.sqrt(normalizedVDM);
         return normalizedVDM;
     }
 
